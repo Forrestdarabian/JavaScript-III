@@ -1,5 +1,5 @@
 /*
-  Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance hierarchy.
+  Object oriented design is commonly used in video games. For this part of the assignment you will be implementing several constructor functions with their correct inheritance hierarchy.
 
   In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
 
@@ -39,9 +39,45 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-// Test you work by un-commenting these 3 objects and the list of console logs below:
+//---------------------------------------------------------------------------------------------------------------------------------------//
+function GameObject(attributes){
 
-/*
+  this.createdAt = attributes.createdAt
+  this.name = attributes.name
+  this.dimensions = attributes.dimensions
+}
+
+GameObject.prototype.destroy = function(){
+return  `${this.name} was removed from the game.`;
+};
+//----------------------------------------------------------------------------------------------------------------------------------------//
+function CharacterStats(attributes){
+  GameObject.call(this, attributes)
+  this.healthPoints = attributes.healthPoints
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype)
+CharacterStats.prototype.takeDamage = function(){
+  return `<object name> took damage.`;
+};
+//----------------------------------------------------------------------------------------------------------------------------------------//
+function Humanoid(attributes){
+  CharacterStats.call(this, attributes)
+  this.team = attributes.team
+  this.weapons = attributes.weapons
+  this.language = attributes.language
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype)
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}`;
+};
+//----------------------------------------------------------------------------------------------------------------------------------------//
+
+
+  // Test you work by un-commenting these 3 objects and the list of console logs below:
+
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +138,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
